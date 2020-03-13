@@ -10,10 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class PFriendAdapter extends RecyclerView.Adapter<PFriendAdapter.PFriendViewHolder> {
-    private List<PFriendData> pDataset;
+public class PFriendAdapterBirthday extends RecyclerView.Adapter<PFriendAdapterBirthday.PFriendViewHolder> {
+    private ArrayList<PFriendData> pDataset;
     private String pNick;
     public PFriendViewHolder pFriendViewHolder;
     public Button btn;
@@ -27,14 +28,23 @@ public class PFriendAdapter extends RecyclerView.Adapter<PFriendAdapter.PFriendV
             super(v);
             pTextViewNickName=v.findViewById(R.id.pTextViewNickName);
             pTextViewMsg=v.findViewById(R.id.pTextViewMsg);
-            btn=v.findViewById(R.id.btn);
+
         }
     }
 
-    public PFriendAdapter(List<PFriendData> Dataset, String nick) {
-        pDataset = Dataset;
-        this.pNick=nick;
+
+    public PFriendAdapterBirthday(List<PFriendData> Dataset, String nick, String tag){
+        if(tag=="birthday"){
+            this.pNick=nick;
+            for(PFriendData element : Dataset){
+                if(element.getpBirthday() == 3 ) {
+                    pDataset = new ArrayList<>();
+                    pDataset.add(element);
+                }
+            }
+        }
     }
+
     @Override
     public void onBindViewHolder(PFriendViewHolder holder, int position) {
         // - get element from your dataset at this position
@@ -42,20 +52,17 @@ public class PFriendAdapter extends RecyclerView.Adapter<PFriendAdapter.PFriendV
         PFriendData pFriendData = pDataset.get(position);
         holder.pTextViewNickName.setText(pFriendData.getNickName());
         holder.pTextViewMsg.setText(pFriendData.getMsg());
-
     }
 
     @NonNull
     @Override
-    public PFriendAdapter.PFriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PFriendAdapterBirthday.PFriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.p_friend_row, parent, false);
         PFriendViewHolder vh = new PFriendViewHolder(v);
         pFriendViewHolder = vh;
         btn = vh.btn;
         return vh;
     }
-
-
 
     @Override
     public int getItemCount() {

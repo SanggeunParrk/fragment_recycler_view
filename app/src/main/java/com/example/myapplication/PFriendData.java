@@ -1,8 +1,9 @@
 package com.example.myapplication;
 
 public class PFriendData {
-    private String pNickName;
-    private String pMsg;
+    private String  pNickName;
+    private String  pMsg;
+    private int     pBirthday;
 
     public String getNickName() {
         return pNickName;
@@ -26,6 +27,12 @@ public class PFriendData {
     public PFriendData(){
         this("default","default");
     }
+    public PFriendData(int pNumber) {
+        this.pNickName = (String) "Nick"+pNumber;
+        this.pMsg = (String) "Msg"+pNumber;
+        this.pBirthday = (int) pNumber;
+    }
+    public int getpBirthday() {return pBirthday;}
 
 
 
