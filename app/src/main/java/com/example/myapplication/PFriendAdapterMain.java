@@ -10,50 +10,100 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class PFriendAdapterMain extends RecyclerView.Adapter<PFriendAdapterMain.PFriendViewHolder> {
+public class PFriendAdapterMain extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<PFriendData> pDataset;
-    private String pNick;
-    public PFriendViewHolder pFriendViewHolder;
-    public Button btn;
+//    public PFriendDefaultViewHolder pFriendDefaultViewHolder;
+    public PFienndScrollDisabledRecyclerViewHolder pFriendScrollDisabledListViewHolder;
+    public PFirendBarViewHolder pFirendBarViewHolder;
 
-    public static class PFriendViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView pTextViewNickName;
-        public TextView pTextViewMsg;
-        public Button btn;
-        public PFriendViewHolder(View v) {
+    private static int P_TYPE_DEFAULT = 0;
+    private static int P_TYPE_BAR =1;
+    private static int P_TYPE_SCROLL_DISABLED_RECYCLER_VIEW = 2;
+
+
+//    public static class PFriendDefaultViewHolder extends RecyclerView.ViewHolder {
+//        public TextView pTextViewNickName;
+//        public TextView pTextViewMsg;
+//        public Button btn;
+//        public PFriendDefaultViewHolder(View v) {
+//            super(v);
+//            pTextViewNickName=v.findViewById(R.id.pTextViewNickName);
+//            pTextViewMsg=v.findViewById(R.id.pTextViewMsg);
+//        }
+//    }
+
+    public static class PFirendBarViewHolder extends RecyclerView.ViewHolder{
+        public TextView pFriendBarText;
+        public PFirendBarViewHolder(View v){
             super(v);
-            pTextViewNickName=v.findViewById(R.id.pTextViewNickName);
-            pTextViewMsg=v.findViewById(R.id.pTextViewMsg);
+            pFriendBarText = v.findViewById(R.id.pFriendBarText);
+        }
+    }
 
+    public static class PFienndScrollDisabledRecyclerViewHolder extends RecyclerView.ViewHolder {
+        public RecyclerView pFriendChildRecyclerView;
+        public String tag;
+
+        public PFienndScrollDisabledRecyclerViewHolder(View v){
+            super(v);
+            pFriendChildRecyclerView = v.findViewById(R.id.pFriendChildRecyclerView);
+            pFriendChildRecyclerView.setHasFixedSize(false);
+            RecyclerView.LayoutManager pLayoutManagerChild;
+            pLayoutManagerChild = new CustomLinearLayoutManager(v.getContext());
+            pFriendChildRecyclerView.setLayoutManager(pLayoutManagerChild);
         }
     }
 
     public PFriendAdapterMain(List<PFriendData> Dataset, String nick) {
         pDataset = Dataset;
-        this.pNick=nick;
-    }
-
-
-    @Override
-    public void onBindViewHolder(PFriendViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        PFriendData pFriendData = pDataset.get(position);
-        holder.pTextViewNickName.setText(pFriendData.getNickName());
-        holder.pTextViewMsg.setText(pFriendData.getMsg());
     }
 
     @NonNull
     @Override
-    public PFriendAdapterMain.PFriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.p_friend_row, parent, false);
-        PFriendViewHolder vh = new PFriendViewHolder(v);
-        pFriendViewHolder = vh;
-        btn = vh.btn;
-        return vh;
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LinearLayout v;
+//        if(viewType == P_TYPE_DEFAULT){
+//            v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.p_friend_row, parent, false);
+//            PFriendDefaultViewHolder vh = new PFriendDefaultViewHolder(v);
+//            return vh;
+//        }
+        if(viewType == P_TYPE_BAR) {
+            v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.p_friend_bar, parent, false);
+            PFirendBarViewHolder vh = new PFirendBarViewHolder(v);
+            return vh;
+        }
+        else{
+            v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.p_friend_child_recycler_view, parent, false);
+            PFienndScrollDisabledRecyclerViewHolder vh = new PFienndScrollDisabledRecyclerViewHolder(v);
+            return vh;
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+//        if(getItemViewType(position)==P_TYPE_DEFAULT){
+//            ((PFriendDefaultViewHolder) holder).pTextViewNickName.setText(pDataset.get(position).getNickName());
+//            ((PFriendDefaultViewHolder) holder).pTextViewMsg.setText(pDataset.get(position).getMsg());
+//        }
+        if(getItemViewType(position)==P_TYPE_BAR){
+            ((PFirendBarViewHolder) holder).pFriendBarText.setText(pDataset.get(position).getpBarText());
+        }
+        else if(getItemViewType(position)==P_TYPE_SCROLL_DISABLED_RECYCLER_VIEW){
+            int ViewTag = pDataset.get(position).getpChildViewType();
+            PFriendAdapterChild pAdapterChild;
+            pAdapterChild = new PFriendAdapterChild(pDataset,ViewTag);
+            ((PFienndScrollDisabledRecyclerViewHolder) holder).pFriendChildRecyclerView.setAdapter(pAdapterChild);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return pDataset.get(position).getType();
     }
 
     @Override

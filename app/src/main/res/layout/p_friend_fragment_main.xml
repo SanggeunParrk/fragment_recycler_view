@@ -11,90 +11,16 @@
         android:layout_height="80dp"
         layout="@layout/p_friend_row_me"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/pFriendBarBirthday"
+        app:layout_constraintBottom_toTopOf="@+id/pRecyclerViewMain"
         app:layout_constraintLeft_toLeftOf="parent"
         />
 
-    <include
-        android:id="@+id/pFriendBarBirthday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/p_friend_bar_birthday"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pFriendMe"
-        app:layout_constraintBottom_toTopOf="@+id/pRecyclerViewBirthday"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pRecyclerViewBirthday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pFriendBarBirthday"
-        app:layout_constraintBottom_toTopOf="@id/pFriendBarFavorites"
-        />
-
-    <include
-        android:id="@+id/pFriendBarFavorites"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/p_friend_bar_favorites"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pRecyclerViewBirthday"
-        app:layout_constraintBottom_toTopOf="@+id/pRecyclerViewFavorites"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pRecyclerViewFavorites"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pFriendBarFavorites"
-        app:layout_constraintBottom_toTopOf="@id/pFriendBarRecommended"
-        />
-
-    <include
-        android:id="@+id/pFriendBarRecommended"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/p_friend_bar_recommended"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pRecyclerViewFavorites"
-        app:layout_constraintBottom_toTopOf="@+id/pRecyclerViewRecommended"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pRecyclerViewRecommended"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pFriendBarRecommended"
-        app:layout_constraintBottom_toTopOf="@id/pFriendBarChannel"
-        />
-    <include
-        android:id="@+id/pFriendBarChannel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/p_friend_bar_channel"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pRecyclerViewRecommended"
-        app:layout_constraintBottom_toTopOf="@+id/pRecyclerViewChannel"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pRecyclerViewChannel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pFriendBarChannel"
-        app:layout_constraintBottom_toTopOf="@id/pFriendBarFriend"
-    />
-    <include
-        android:id="@+id/pFriendBarFriend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/p_friend_bar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pRecyclerViewChannel"
-        app:layout_constraintBottom_toTopOf="@+id/pRecyclerViewMain"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pRecyclerViewMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pFriendBarFriend"
+        app:layout_constraintTop_toBottomOf="@id/pFriendMe"
         app:layout_constraintBottom_toBottomOf="parent"
     />
 

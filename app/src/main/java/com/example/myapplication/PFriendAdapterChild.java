@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PFriendAdapterBirthday extends RecyclerView.Adapter<PFriendAdapterBirthday.PFriendViewHolder> {
+public class PFriendAdapterChild extends RecyclerView.Adapter<PFriendAdapterChild.PFriendViewHolder> {
     private ArrayList<PFriendData> pDataset;
     private String pNick;
     public PFriendViewHolder pFriendViewHolder;
@@ -28,19 +28,35 @@ public class PFriendAdapterBirthday extends RecyclerView.Adapter<PFriendAdapterB
             super(v);
             pTextViewNickName=v.findViewById(R.id.pTextViewNickName);
             pTextViewMsg=v.findViewById(R.id.pTextViewMsg);
-
         }
     }
 
 
-    public PFriendAdapterBirthday(List<PFriendData> Dataset, String nick, String tag){
-        if(tag=="birthday"){
-            this.pNick=nick;
+    public PFriendAdapterChild(List<PFriendData> Dataset, int tag){
+        pDataset = new ArrayList<>();
+        if(tag==0){
             for(PFriendData element : Dataset){
-                if(element.getpBirthday() == 3 ) {
-                    pDataset = new ArrayList<>();
-                    pDataset.add(element);
-                }
+                if(element.getpBirthday() == 3 )    pDataset.add(element);
+            }
+        }
+        else if (tag==1){
+            for(PFriendData element : Dataset){
+                if(element.getpBirthday() == 1 )    pDataset.add(element);
+            }
+        }
+        else if (tag==2){
+            for(PFriendData element : Dataset){
+                if(element.getpBirthday() == 4 )    pDataset.add(element);
+            }
+        }
+        else if (tag==3){
+            for(PFriendData element : Dataset){
+                if(element.getpBirthday() == 1 )    pDataset.add(element);
+            }
+        }
+        else if (tag==4){
+            for(int i=1;i<10;i++){
+                pDataset.add(new PFriendData(i));
             }
         }
     }
@@ -56,7 +72,7 @@ public class PFriendAdapterBirthday extends RecyclerView.Adapter<PFriendAdapterB
 
     @NonNull
     @Override
-    public PFriendAdapterBirthday.PFriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PFriendAdapterChild.PFriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.p_friend_row, parent, false);
         PFriendViewHolder vh = new PFriendViewHolder(v);
         pFriendViewHolder = vh;
