@@ -4,8 +4,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,10 +41,34 @@ public class PFriendAdapterMain extends RecyclerView.Adapter<RecyclerView.ViewHo
 //    }
 
     public static class PFirendBarViewHolder extends RecyclerView.ViewHolder{
-        public TextView pFriendBarText;
+        public TextView         pFriendBarText;
+        public RelativeLayout   pButtonFriend;
+        public ImageView        pImageFriendDown,pImageFriendUp;
+        public int              pButtonVisibility=0;
         public PFirendBarViewHolder(View v){
             super(v);
             pFriendBarText = v.findViewById(R.id.pFriendBarText);
+            pButtonFriend = v.findViewById(R.id.pButtonFriend);
+            pImageFriendUp = v.findViewById(R.id.pImageFriendUp);
+            pImageFriendDown = v.findViewById(R.id.pImageFriendDown);
+            pImageFriendUp.setVisibility(View.INVISIBLE);
+            pButtonFriend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(),"성공!",Toast.LENGTH_LONG).show();
+                    if(pButtonVisibility==0) {
+                        pImageFriendDown.setVisibility(View.INVISIBLE);
+                        pImageFriendUp.setVisibility(View.VISIBLE);
+                        pButtonVisibility=1;
+                    }
+                    else{
+
+                        pImageFriendUp.setVisibility(View.INVISIBLE);
+                        pImageFriendDown.setVisibility(View.VISIBLE);
+                        pButtonVisibility=0;
+                    }
+                }
+            });
         }
     }
 

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,14 +24,21 @@ public class PFriendAdapterChild extends RecyclerView.Adapter<PFriendAdapterChil
         // each data item is just a string in this case
         public TextView pTextViewNickName;
         public TextView pTextViewMsg;
+        public LinearLayout pLinearLayout;
         public Button btn;
         public PFriendViewHolder(View v) {
             super(v);
             pTextViewNickName=v.findViewById(R.id.pTextViewNickName);
             pTextViewMsg=v.findViewById(R.id.pTextViewMsg);
+            pLinearLayout = v.findViewById(R.id.pLinearLayout);
+            pLinearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(),"성공! Child", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
-
 
     public PFriendAdapterChild(List<PFriendData> Dataset, int tag){
         pDataset = new ArrayList<>();
